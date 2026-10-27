@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { profile } from "@/data/profile";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -15,9 +16,6 @@ const outfit = Outfit({
   subsets: ["latin"],
   display: "swap",
 });
-
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://sanjeevshrestha.dev";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -44,11 +42,20 @@ export const metadata: Metadata = {
     siteName: profile.name,
     title: `${profile.name} · ${profile.title}`,
     description: profile.summary,
+    images: [
+      {
+        url: "/sanjeev.png",
+        width: 900,
+        height: 900,
+        alt: profile.name,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${profile.name} · ${profile.title}`,
     description: profile.summary,
+    images: ["/sanjeev.png"],
   },
   robots: {
     index: true,
@@ -72,6 +79,7 @@ const jsonLd = {
     addressCountry: "NP",
   },
   url: siteUrl,
+  image: `${siteUrl}/sanjeev.png`,
   sameAs: [profile.links.github, profile.links.linkedin],
   description: profile.summary,
 };

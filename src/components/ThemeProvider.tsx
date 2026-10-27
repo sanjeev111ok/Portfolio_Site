@@ -4,16 +4,15 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useRef,
   useState,
+  type ReactNode,
 } from "react";
 
 type Theme = "light" | "dark";
 
 type ThemeContextValue = {
   theme: Theme;
-  setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
 };
 
@@ -23,6 +22,11 @@ const THEME_BG: Record<Theme, string> = {
   light: "#ffffff",
   dark: "#0a0a0b",
 };
+
+function readDomTheme(): Theme {
+  if (typeof document === "undefined") return "light";
+  return document.documentElement.classList.contains("dark") ? "dark" : "light";
+}
 
 function applyTheme(theme: Theme) {
   const root = document.documentElement;
@@ -35,8 +39,7 @@ function prefersReducedMotion() {
 }
 
 function playCornerReveal(next: Theme, onCover: () => void) {
-  const existing = document.querySelector(".theme-corner-overlay");
-  existing?.remove();
+  document.querySelector(".theme-corner-overlay")?.remove();
 
   const root = document.documentElement;
   root.classList.add("theme-bg-revealing");
@@ -51,8 +54,6 @@ function playCornerReveal(next: Theme, onCover: () => void) {
   const bl = document.createElement("span");
   bl.className = "theme-corner theme-corner-bl";
   overlay.append(tr, bl);
-
-  // Insert behind page content (first child of body)
   document.body.prepend(overlay);
 
   overlay.getBoundingClientRect();
@@ -70,7 +71,6 @@ function playCornerReveal(next: Theme, onCover: () => void) {
   };
 
   window.setTimeout(cover, 560);
-
   overlay.addEventListener(
     "transitionend",
     (event) => {
@@ -80,21 +80,9 @@ function playCornerReveal(next: Theme, onCover: () => void) {
   );
 }
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("light");
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setThemeState] = useState<Theme>(readDomTheme);
   const busyRef = useRef(false);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("theme") as Theme | null;
-    const preferred =
-      stored === "light" || stored === "dark"
-        ? stored
-        : window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
-    setThemeState(preferred);
-    applyTheme(preferred);
-  }, []);
 
   const changeTheme = useCallback((next: Theme) => {
     if (busyRef.current) return;
@@ -115,20 +103,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     playCornerReveal(next, commit);
   }, []);
 
-  const setTheme = useCallback(
-    (next: Theme) => {
-      if (next === theme) return;
-      changeTheme(next);
-    },
-    [changeTheme, theme],
-  );
-
   const toggleTheme = useCallback(() => {
     changeTheme(theme === "dark" ? "light" : "dark");
   }, [changeTheme, theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <div className="site-content relative z-10 flex min-h-full flex-1 flex-col">
         {children}
       </div>

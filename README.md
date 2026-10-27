@@ -1,15 +1,15 @@
 # Sanjeev Shrestha — Portfolio
 
-Clean, SSR Next.js portfolio site.
+SSR Next.js portfolio with light/dark theme.
 
 ## Stack
 
-- **Next.js** (App Router, server-rendered for SEO)
-- **TypeScript**
-- **Tailwind CSS**
-- **lucide-react**
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- lucide-react
 
-Primary color: `#4C1D95` · White backgrounds
+Primary: `#4C1D95`
 
 ## Develop
 
@@ -18,16 +18,14 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+## Content
 
-## Configure
+Edit `src/data/profile.ts` for copy, links, experience, and projects.
 
-Edit content in `src/data/profile.ts` (links, copy, projects).
-
-Set your production URL:
+Optional env:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://your-domain.com
+NEXT_PUBLIC_SITE_URL=https://www.sanjeevshrestha200.com.np
 ```
 
 ## Build

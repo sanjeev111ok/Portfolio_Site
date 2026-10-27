@@ -34,32 +34,44 @@ export const skills = {
 export const experience = [
   {
     company: "Fifteen Roots Pvt. Ltd.",
-    role: "Founder & CEO",
+    url: "https://fifteenroots.com",
     location: "Nepal",
     period: "Bhadra 10, 2083 – Present",
-    bullets: [
-      "Lead software development projects and proprietary product initiatives.",
-      "Contribute to full-stack development across client projects and in-house products.",
+    logo: "/fifteenroots.png",
+    roles: [
+      {
+        title: "Founder & CEO",
+        period: "Bhadra 10, 2083 – Present",
+        bullets: [
+          "Lead software development projects and proprietary product initiatives.",
+          "Contribute to full-stack development across client projects and in-house products.",
+        ],
+      },
     ],
   },
   {
     company: "Digital Pathshala Pvt. Ltd.",
-    role: "Project Manager",
+    url: "https://digitalpathshalanepal.com",
     location: "Nepal",
-    period: "Poush 20, 2082 – Baisakh 31, 2083",
-    bullets: [
-      "Managed client communication, requirements gathering, task coordination, and project tracking.",
-      "Coordinated delivery between clients and technical teams.",
-    ],
-  },
-  {
-    company: "Digital Pathshala Pvt. Ltd.",
-    role: "Mobile App Developer",
-    location: "Nepal",
-    period: "Bhadra 11, 2082 – Poush 20, 2082",
-    bullets: [
-      "Developed cross-platform mobile applications using React Native and Expo.",
-      "Contributed to web, backend, and mobile development across multiple projects.",
+    period: "Bhadra 11, 2082 – Baisakh 31, 2083",
+    logo: "/digitalpathshala.jpg",
+    roles: [
+      {
+        title: "Project Manager",
+        period: "Poush 20, 2082 – Baisakh 31, 2083",
+        bullets: [
+          "Managed client communication, requirements gathering, task coordination, and project tracking.",
+          "Coordinated delivery between clients and technical teams.",
+        ],
+      },
+      {
+        title: "Mobile App Developer",
+        period: "Bhadra 11, 2082 – Poush 20, 2082",
+        bullets: [
+          "Developed cross-platform mobile applications using React Native and Expo.",
+          "Contributed to web, backend, and mobile development across multiple projects.",
+        ],
+      },
     ],
   },
 ];
@@ -69,14 +81,22 @@ export const projects = [
     name: "SahaKosh",
     tagline: "Cooperative Management Platform",
     description:
-      "Built superadmin and cooperative dashboards, a member mobile app, and a marketing website.",
+      "A Nepal-based cooperative management system by Axile Solutions. SahaKosh helps cooperatives run day-to-day operations—member records, savings and loans, reporting, and administration—through web dashboards, a member mobile app, and a public marketing site.",
+    logo: "/sahakosh.svg",
+    url: "https://sahakosh.com",
+    company: "Axile Solutions",
+    region: "Nepal",
     tech: ["React Native", "Next.js", "Node.js", "Supabase"],
   },
   {
     name: "AgEra",
-    tagline: "Agriculture Management Platform",
+    tagline: "Farm & Agriculture Management",
     description:
-      "Contributed to management dashboards, marketing website, and mobile app for farm workers and researchers.",
+      "An Australia-based farm management system founded by Axile Solutions. AgEra connects farm operators, field workers, and researchers with tools for operational planning, field activity tracking, research workflows, and map-based insights across web and mobile.",
+    logo: "/agera.svg",
+    url: "https://agera.farm",
+    company: "Axile Solutions",
+    region: "Australia",
     tech: [
       "React.js",
       "Next.js",
@@ -89,9 +109,13 @@ export const projects = [
   },
   {
     name: "GadiGhoda GPS",
-    tagline: "Vehicle Tracking Platform",
+    tagline: "Vehicle Tracking System",
     description:
-      "Contributed to the admin dashboard, client portal, marketing website, and client/driver mobile apps.",
+      "A vehicle tracking platform built for Nepal. GadiGhoda GPS provides real-time fleet visibility, route and location monitoring, and operational control through an admin dashboard, client portal, and dedicated apps for clients and drivers.",
+    logo: "/gadighoda.avif",
+    url: "https://gadighodagps.com",
+    company: "GadiGhoda GPS",
+    region: "Nepal",
     tech: [
       "React.js",
       "Next.js",
@@ -106,13 +130,33 @@ export const projects = [
     name: "StudyNP",
     tagline: "Educational Resources Platform",
     description:
-      "Developed the marketing website and admin dashboard for syllabus management and question uploads.",
+      "An education platform by Fifteen Roots that centralizes study materials, syllabi, and practice resources for programs such as BIT, BSc CSIT, and BTech—helping students access structured academic content through a web experience and admin tools for content management.",
+    logo: "/studynp.png",
+    url: "https://fifteenroots.com",
+    company: "Fifteen Roots",
+    region: "Nepal",
     tech: ["React", "Node.js", "Docker"],
   },
   {
-    name: "Sanskar Numerology & Sanskar Compass",
-    tagline: "Mobile Applications",
-    description: "Contributed to mobile application development.",
+    name: "Sanskar Numerology",
+    tagline: "Numerology Mobile App",
+    description:
+      "A mobile numerology app by Sanskar Academy for exploring Pythagorean, Chaldean, Mulank, and Bhagyank number systems—helping users generate and understand personal number profiles on Android.",
+    logo: null,
+    url: "https://play.google.com/store/search?q=sanskar+numerology&c=apps&hl=en",
+    company: "Sanskar Academy",
+    region: "Mobile · Android",
+    tech: ["React Native", "Expo"],
+  },
+  {
+    name: "Sanskar Vastu Compass",
+    tagline: "Vastu Compass Mobile App",
+    description:
+      "A digital Vastu compass app by Sanskar Academy with maps, photo tools, dials, and guided Vastu workflows—designed as a practical field companion for direction and spatial alignment on Android.",
+    logo: null,
+    url: "https://play.google.com/store/search?q=sanskar+vastu+compass&c=apps&hl=en",
+    company: "Sanskar Academy",
+    region: "Mobile · Android",
     tech: ["React Native", "Expo"],
   },
 ];

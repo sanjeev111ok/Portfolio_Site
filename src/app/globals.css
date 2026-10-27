@@ -151,3 +151,155 @@ html.theme-bg-revealing .site-content main {
 .animate-fade-up-delay-3 {
   animation: fade-up 0.7s ease-out 0.3s both;
 }
+
+.hero-portrait {
+  animation: hero-portrait-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+@keyframes hero-portrait-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-portrait {
+    animation: none;
+  }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Experience timeline — line draws, items stagger in */
+.experience-timeline-wrap.reveal {
+  transform: none;
+}
+
+.experience-timeline {
+  position: relative;
+}
+
+.experience-timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -1px;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    var(--primary) 0%,
+    color-mix(in srgb, var(--primary) 40%, transparent) 100%
+  );
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.05s;
+}
+
+.experience-timeline-wrap.reveal-visible .experience-timeline::before {
+  transform: scaleY(1);
+}
+
+.experience-item {
+  opacity: 0;
+  transform: translateX(-16px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(160ms + (var(--item-index, 0) * 150ms));
+}
+
+.experience-timeline-wrap.reveal-visible .experience-item {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.experience-dot {
+  transform: scale(0.4);
+  transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+  transition-delay: calc(220ms + (var(--item-index, 0) * 150ms));
+}
+
+.experience-timeline-wrap.reveal-visible .experience-dot {
+  transform: scale(1);
+  animation: experience-dot-pulse 1.35s ease-out
+    calc(280ms + (var(--item-index, 0) * 150ms)) 1;
+}
+
+.experience-logo {
+  transform: scale(0.88) translateY(4px);
+  opacity: 0.7;
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.55s ease,
+    box-shadow 0.35s ease;
+  transition-delay: calc(200ms + (var(--item-index, 0) * 150ms));
+}
+
+.experience-timeline-wrap.reveal-visible .experience-logo {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.experience-period {
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(260ms + (var(--item-index, 0) * 150ms));
+}
+
+.experience-timeline-wrap.reveal-visible .experience-period {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.experience-item:hover .experience-logo {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--primary) 14%, transparent);
+}
+
+@keyframes experience-dot-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--primary) 45%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 11px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .experience-item,
+  .experience-dot,
+  .experience-logo,
+  .experience-period,
+  .experience-timeline::before {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}

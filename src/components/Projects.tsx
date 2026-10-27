@@ -1,4 +1,32 @@
+import Image from "next/image";
+import { ArrowUpRight, Smartphone } from "lucide-react";
 import { projects } from "@/data/profile";
+
+function ProjectLogo({
+  name,
+  logo,
+}: {
+  name: string;
+  logo: string | null;
+}) {
+  return (
+    <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-white p-2 shadow-sm sm:h-16 sm:w-16">
+      {logo ? (
+        <Image
+          src={logo}
+          alt={`${name} logo`}
+          width={56}
+          height={56}
+          className="h-full w-full object-contain"
+        />
+      ) : (
+        <span className="flex h-full w-full items-center justify-center rounded-lg bg-primary-soft text-primary">
+          <Smartphone size={22} strokeWidth={1.75} />
+        </span>
+      )}
+    </div>
+  );
+}
 
 export default function Projects() {
   return (
@@ -11,43 +39,89 @@ export default function Projects() {
           Selected work
         </h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-subtle">
-          Platforms spanning cooperatives, agriculture, vehicle tracking, and
-          education — web, mobile, and admin dashboards.
+          Product platforms across cooperatives, agriculture, vehicle tracking,
+          education, and consumer mobile apps.
         </p>
 
         <ul className="mt-12 divide-y divide-border border-y border-border">
           {projects.map((project) => (
-            <li
-              key={project.name}
-              className="group grid gap-4 py-8 transition-colors first:pt-8 last:pb-8 sm:grid-cols-[1fr_1.4fr] sm:gap-10"
-            >
-              <div>
-                <h3 className="font-display text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
-                  {project.name}
-                </h3>
-                <p className="mt-1 text-sm font-medium text-primary">
-                  {project.tagline}
-                </p>
-              </div>
-              <div>
-                <p className="text-base leading-relaxed text-subtle">
-                  {project.description}
-                </p>
-                <ul className="mt-4 flex flex-wrap gap-2">
-                  {project.tech.map((t) => (
-                    <li
-                      key={t}
-                      className="rounded-md border border-border bg-surface px-2.5 py-1 text-xs font-medium text-subtle"
-                    >
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <li key={project.name} className="py-8 first:pt-8 last:pb-8">
+              {project.url ? (
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group grid gap-5 sm:grid-cols-[auto_1fr] sm:gap-8"
+                >
+                  <ProjectLogo name={project.name} logo={project.logo} />
+                  <ProjectBody project={project} linked />
+                </a>
+              ) : (
+                <div className="grid gap-5 sm:grid-cols-[auto_1fr] sm:gap-8">
+                  <ProjectLogo name={project.name} logo={project.logo} />
+                  <ProjectBody project={project} linked={false} />
+                </div>
+              )}
             </li>
           ))}
         </ul>
       </div>
     </section>
+  );
+}
+
+function ProjectBody({
+  project,
+  linked,
+}: {
+  project: (typeof projects)[number];
+  linked: boolean;
+}) {
+  return (
+    <div className="min-w-0">
+      <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
+        <div>
+          <h3
+            className={`font-display text-xl font-semibold text-foreground transition-colors ${
+              linked ? "group-hover:text-primary" : ""
+            }`}
+          >
+            <span className="inline-flex items-center gap-1.5">
+              {project.name}
+              {linked ? (
+                <ArrowUpRight
+                  size={16}
+                  className="shrink-0 text-subtle opacity-0 transition-opacity group-hover:opacity-100"
+                  aria-hidden
+                />
+              ) : null}
+            </span>
+          </h3>
+          <p className="mt-0.5 text-sm font-medium text-primary">
+            {project.tagline}
+          </p>
+        </div>
+        <p className="text-sm text-subtle">
+          {project.company}
+          <span className="mx-1.5 text-border">·</span>
+          {project.region}
+        </p>
+      </div>
+
+      <p className="mt-3 max-w-2xl text-base leading-relaxed text-subtle">
+        {project.description}
+      </p>
+
+      <ul className="mt-4 flex flex-wrap gap-2">
+        {project.tech.map((t) => (
+          <li
+            key={t}
+            className="rounded-md border border-border bg-surface px-2.5 py-1 text-xs font-medium text-subtle"
+          >
+            {t}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
